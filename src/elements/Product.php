@@ -184,7 +184,7 @@ class Product extends Purchasable
 
         foreach ($productTypes as $productType) {
             $key = 'productType:'.$productType->id;
-            $canEditProducts = Craft::$app->getUser()->checkPermission('digitalProducts-manageProducts:'.$productType->uid);
+            $canEditProducts = Craft::$app->getUser()->checkPermission('digitalProducts-manageProducts:'.$productType->id);
 
             $sources[$key] = [
                 'key' => $key,

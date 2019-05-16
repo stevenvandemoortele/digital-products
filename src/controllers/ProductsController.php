@@ -82,7 +82,7 @@ class ProductsController extends BaseController
             throw new Exception('The product type was not found.');
         }
 
-        $this->requirePermission('digitalProducts-manageProducts:'.$productType->uid);
+        $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
         $variables['productType'] = $productType;
 
         if ($siteHandle !== null) {
@@ -131,7 +131,7 @@ class ProductsController extends BaseController
             throw new Exception(Craft::t('digital-products', 'No product exists with the ID “{id}”.',['id' => $productId]));
         }
 
-        $this->requirePermission('digitalProducts-manageProducts:'.$product->typeId);
+        $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         if (!Craft::$app->getElements()->deleteElement($product)) {
             if (Craft::$app->getRequest()->getAcceptsJson()) {
@@ -166,7 +166,7 @@ class ProductsController extends BaseController
 
         $product = $this->_buildProductFromPost();
 
-        $this->requirePermission('digitalProducts-manageProducts:'.$product->typeId);
+        $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         $existingProduct = (bool)$product->id;
 
@@ -199,7 +199,7 @@ class ProductsController extends BaseController
         $this->requirePostRequest();
 
         $product = $this->_buildProductFromPost();
-        $this->requirePermission('digitalProducts-manageProducts:'.$product->typeId);
+        $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         return $this->_showProduct($product);
     }
@@ -222,7 +222,7 @@ class ProductsController extends BaseController
             throw new Exception();
         }
 
-        $this->requirePermission('digitalProducts-manageProducts:'.$product->typeId);
+        $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         // Create the token and redirect to the product URL with the token in place
         $token = Craft::$app->getTokens()->createToken([

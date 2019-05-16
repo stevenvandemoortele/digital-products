@@ -166,7 +166,6 @@ class Product extends Purchasable
             $productTypeIds[] = $productType->id;
         }
 
-
         $sources = [
             [
                 'key' => '*',
@@ -179,11 +178,13 @@ class Product extends Purchasable
             ]
         ];
 
+        
+
         $sources[] = ['heading' => Craft::t('digital-products', 'Product Types')];
 
         foreach ($productTypes as $productType) {
             $key = 'productType:'.$productType->id;
-            $canEditProducts = Craft::$app->getUser()->checkPermission('digitalProducts-manageProductType:'.$productType->id);
+            $canEditProducts = Craft::$app->getUser()->checkPermission('digitalProducts-manageProducts:'.$productType->uid);
 
             $sources[$key] = [
                 'key' => $key,
@@ -348,9 +349,9 @@ class Product extends Purchasable
     public function getIsEditable(): bool
     {
         if ($this->getType()) {
-            $id = $this->getType()->id;
+            $id = $this->getType()->uid;
 
-            return Craft::$app->getUser()->checkPermission('digitalProducts-manageProductType:'.$id);
+            return Craft::$app->getUser()->checkPermission('digitalProducts-manageProducts:'.$id);
         }
 
         return false;

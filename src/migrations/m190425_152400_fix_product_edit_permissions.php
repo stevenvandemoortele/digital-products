@@ -52,7 +52,7 @@ class m190425_152400_fix_product_edit_permissions extends Migration
                 $newPermissions = [];
                 foreach ($groupUids as $groupUid) {
                     $permissions = $projectConfig->get('users.groups.' . $groupUid . '.permissions');
-                    if (is_array($permissions)) {
+                    if(is_array($permissions)) {
                         foreach ($productTypeUids as $productTypeUid) {
                             if (in_array('digitalproducts-manageproducts', $permissions, true)) {
                                 $permissionName = 'digitalproducts-manageproducttype:' . $productTypeUid;

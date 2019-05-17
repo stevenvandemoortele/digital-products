@@ -131,6 +131,8 @@ class ProductsController extends BaseController
             throw new Exception(Craft::t('digital-products', 'No product exists with the ID “{id}”.',['id' => $productId]));
         }
 
+        $productType = $product->getType();
+
         $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         if (!Craft::$app->getElements()->deleteElement($product)) {
@@ -166,6 +168,8 @@ class ProductsController extends BaseController
 
         $product = $this->_buildProductFromPost();
 
+        $productType = $product->getType();
+
         $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         $existingProduct = (bool)$product->id;
@@ -199,6 +203,7 @@ class ProductsController extends BaseController
         $this->requirePostRequest();
 
         $product = $this->_buildProductFromPost();
+        $productType = $product->getType();
         $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
         return $this->_showProduct($product);
@@ -221,6 +226,8 @@ class ProductsController extends BaseController
         if (!$product || DigitalProducts::getInstance()->getProductTypes()->isProductTypeTemplateValid($product->getType())) {
             throw new Exception();
         }
+
+        $productType = $product->getType();
 
         $this->requirePermission('digitalProducts-manageProducts:'.$productType->id);
 
